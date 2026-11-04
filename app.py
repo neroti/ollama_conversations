@@ -5,11 +5,24 @@ import os
 from pathlib import Path
 import time
 
+
 # Ajouter le dossier courant au path Python
 sys.path.append(str(Path(__file__).parent))
 
 from ollama_agent import OllamaAgent
 from conversation_manager import ConversationManager
+
+from fastapi import FastAPI
+ 
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "Hello from Python on Vercel"}
+ 
+@app.get("/api/items/{item_id}")
+def read_item(item_id: int):
+    return {"item_id": item_id}
 
 def main():
     st.set_page_config(
